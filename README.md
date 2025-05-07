@@ -38,7 +38,8 @@ The goal of this repository is to offer a streamlined and opinionated set of con
 │   └── qa/                     # QA environment
 ├── info/                       # Additional documentation, guides, and tutorials
 │   ├── add-service.md          # Guide on adding new services
-│   └── local-setup.yaml        # Instructions for local development setup (if applicable)
+│   └── local-setup.md          # Instructions for local development setup (if applicable)
+│   └── jenkins-configuration.md # Jenkins pipeline configuration guide
 └── scripts/                    # Utility scripts
     └── jenkins/                # Jenkins pipeline scripts
 ```
