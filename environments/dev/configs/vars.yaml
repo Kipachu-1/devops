@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: main-config
+  namespace: development-env
+data:
+  KEY1: ""
+  KEY2: ""

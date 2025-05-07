@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: database
+  labels:
+    environment: database
+  annotations:
+    description: "Database services namespace"
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: logging
+  labels:
+    environment: logging
+  annotations:
+    description: "Logging services namespace"
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: vault
+  labels:
+    environment: vault
+    istio-injection: enabled
+  annotations:
+    description: "Vault services namespace"

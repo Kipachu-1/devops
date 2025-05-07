@@ -1,0 +1,19 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: backend-virtualservice
+  namespace: development-env
+spec:
+  hosts:
+  - "backend.com"
+  gateways:
+  - development-env-gateway # Ensure this matches the name of your Gateway resource
+  http:
+  - match:
+    - uri:
+        prefix: "/" # Example prefix for backend routes, adjust as needed
+    route:
+    - destination:
+        host: backend-service # This should match the name of your backend Kubernetes Service
+        port:
+          number: 80 # This should match the port your backend service is listening on

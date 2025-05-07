@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: vault-pv
+  namespace: vault
+  labels:
+    type: nfs
+    app: vault
+    vol: pv-nfs
+spec:
+  storageClassName: "manual"
+  capacity:
+    storage: 2Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: /var/snap/microk8s/common/nfs-storage

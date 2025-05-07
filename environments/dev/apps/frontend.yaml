@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+  namespace: development-env
+  labels:
+    app: frontend
+spec:
+  replicas: 2 # Adjust as needed
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - name: frontend-container
+        image: karthequian/helloworld # Replace with your frontend image
+        ports:
+        - containerPort: 80 # Adjust to your application's port
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+--- 
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+  namespace: development-env
+spec:
+  selector:
+    app: frontend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80 # Adjust to your application's port
+  type: ClusterIP # Or ClusterIP if not exposing externally directly

@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  labels:
+    app: backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: backend-container
+          image: unclecode/crawl4ai # Replace with your backend image
+          ports:
+            - containerPort: 11235 # Adjust to your application's port
+          resources:
+            limits:
+              memory: "256Mi"
+              cpu: "1"
+            requests:
+              memory: "128Mi"
+              cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+spec:
+  selector:
+    app: backend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 11235 # Adjust to your application's port
+  type: ClusterIP # Typically backend services are not exposed externally

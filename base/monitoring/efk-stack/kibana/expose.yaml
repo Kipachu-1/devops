@@ -1,0 +1,51 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: logging-gateway
+  namespace: logging
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http-apps
+      protocol: HTTP
+    hosts:
+    - "kibana.com"
+  - port:
+      number: 443
+      name: https-apps
+      protocol: HTTPS
+    hosts:
+    - "kibana.com"
+    tls:
+      mode: PASSTHROUGH 
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: kibana-vs
+  namespace: logging
+spec:
+  hosts:
+  - "kibana.com"
+  gateways:
+  - logging-gateway
+  http:
+  - route:
+    - destination:
+        host: kibana-service
+        port:
+          number: 80
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: kibana-service
+  namespace: logging
+spec:
+  host: kibana-service
+  trafficPolicy:
+    tls:
+      mode: DISABLE

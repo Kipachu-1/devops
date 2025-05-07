@@ -1,0 +1,19 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: frontend-virtualservice
+  namespace: development-env
+spec:
+  hosts:
+  - "frontend.com"
+  gateways:
+  - development-env-gateway # Ensure this matches the name of your Gateway resource
+  http:
+  - match:
+    - uri:
+        prefix: "/"
+    route:
+    - destination:
+        host: frontend-service # This should match the name of your frontend Kubernetes Service
+        port:
+          number: 80 # This should match the port your frontend service is listening on
